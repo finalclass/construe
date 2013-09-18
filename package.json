@@ -1,6 +1,6 @@
 {
   "name": "construe",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Object.defineProperty wrapper with nice description methods",
   "main": "index.js",
   "scripts": {
