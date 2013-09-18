@@ -3,6 +3,12 @@ construe
 
 Object.defineProperty wrapper with nice description methods
 
+## Installation
+
+```bash
+npm install construe
+```
+
 ## Documentation
 
 `contrue` method basically does what Object.defineProperty / Object .defineProperties does.
@@ -25,5 +31,12 @@ var obj = construe({}, {
         }
     }
 });
+```
 
+### Share nodejs module with the browser
+
+If you use express you can use confinience method to share this node module with the browser:
+
+```js
+app.get('/construe.js', construe.expressRoute);
 ```
