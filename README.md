@@ -16,3 +16,14 @@ If we specify 3 arguments then Object.defineproperty method is called.
 #### method
 
 If you specify `method` descriptor and assign function to it, `contrue` will bind the target object to this method.
+
+```js
+var obj = construe({}, {
+    test: {
+        method: function () {
+            //in this method `this` is always set to obj
+        }
+    }
+});
+
+```
