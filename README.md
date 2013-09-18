@@ -21,7 +21,7 @@ If you specify `method` descriptor and assign function to it, `contrue` will bin
 var obj = construe({}, {
     test: {
         method: function () {
-            //in this method `this` is always set to obj
+            //in this function `this` is always set to obj
         }
     }
 });
