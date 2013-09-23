@@ -15,7 +15,7 @@ npm install construe
 
 If we specify 2 arguments then Object.defineProperties method is called.
 
-If we specify 3 arguments then Object.defineproperty method is called.
+If we specify 3 arguments then Object.defineProperty method is called.
 
 ### Additional descriptor features
 

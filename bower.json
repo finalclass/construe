@@ -1,0 +1,28 @@
+{
+  "name": "construe",
+  "main": "index.js",
+  "version": "0.0.2",
+  "homepage": "https://github.com/finalclass/construe",
+  "authors": [
+    "Szymon WYgnański <s@finalclass.net>"
+  ],
+  "description": "Object.defineProperty wrapper with nice description methods",
+  "keywords": [
+    "object",
+    "class",
+    "defineProperty",
+    "defineProperties",
+    "descriptor"
+  ],
+  "dependencies": {
+    "eventEmitter": "*"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
