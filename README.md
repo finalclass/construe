@@ -34,7 +34,7 @@ app.get('/construe.js', construe.expressRoute);
 
 ## Documentation
 
-`contrue` method basically does what Object.defineProperty / Object .defineProperties does.
+`construe` method basically does what Object.defineProperty / Object .defineProperties does.
 
 If we specify 2 arguments then Object.defineProperties method is called.
 
