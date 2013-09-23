@@ -1,7 +1,7 @@
 {
   "name": "construe",
   "main": "index.js",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/finalclass/construe",
   "authors": [
     "Szymon WYgnański <s@finalclass.net>"
