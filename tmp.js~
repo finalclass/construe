@@ -1,0 +1,15 @@
+var construe = require('./index.js');
+var obj1 = construe({
+    variable: {
+	bindable: true
+    }
+});
+
+var obj2 = construe({
+    variable: {
+	bind: [obj1, 'variable']
+    }
+});
+
+obj1.variable = 'TEST';
+console.log(obj2.variable); //obj1.variable has value of 'TEST' now
