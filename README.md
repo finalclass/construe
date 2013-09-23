@@ -5,9 +5,32 @@ Object.defineProperty wrapper with nice description methods
 
 ## Installation
 
+## node.js
+
 ```bash
 npm install construe
 ```
+
+## browser
+
+```bash
+bower install construe
+```
+
+```html
+<script type="text/javascript" href="/bower_components/construe/bower_components/eventEmitter/EventEmitter.js"/>
+<script type="text/javascript" href="/bower_components/construe/index.js"/>
+```
+
+### Share nodejs module with the browser
+
+If you use express you can use confinience method to share this node module with the browser:
+This route will merge all construe dependencies into one file.
+
+```js
+app.get('/construe.js', construe.expressRoute);
+```
+
 
 ## Documentation
 
@@ -101,11 +124,3 @@ console.log(obj2.variable); //obj2.variable has a value of '2 way`
 obj2.variable = 'data binding';
 console.log(obj1.variable); //obj1.variable has a value of 'data binding' now
  ```
-
-### Share nodejs module with the browser
-
-If you use express you can use confinience method to share this node module with the browser:
-
-```js
-app.get('/construe.js', construe.expressRoute);
-```
