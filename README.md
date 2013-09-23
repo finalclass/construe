@@ -18,7 +18,7 @@ bower install construe
 ```
 
 ```html
-<script type="text/javascript" href="/bower_components/construe/bower_components/eventEmitter/EventEmitter.js"/>
+<script type="text/javascript" href="/bower_components/eventEmitter/EventEmitter.js"/>
 <script type="text/javascript" href="/bower_components/construe/index.js"/>
 ```
 
