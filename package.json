@@ -24,5 +24,8 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/finalclass/construe/issues"
+  },
+  "dependencies": {
+    "final-events": "~0.4.4"
   }
 }

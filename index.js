@@ -4,19 +4,23 @@
 (function () {
   'use strict';
 
-  //load dependencies (in the browser they should be loaded via the script tags
-  //or you can use express-route.js if you use connect nodejs server
+  var imports;
+
   if (typeof window === 'undefined') {
-    var EventEmitter = require('events').EventEmitter;
+    imports = {
+      finalEvents: require('final-events')
+    }
+  } else {
+    imports = window;
   }
 
   var construe = function () {
-      if (arguments.length === 1) {
-        return construe.defineProperties(Object.create(null), arguments[0]);
-      }
-      if (arguments.length === 2) {
-        return construe.defineProperties(arguments[0], arguments[1]);
-      }
+    if (arguments.length === 1) {
+      return construe.defineProperties(Object.create(null), arguments[0]);
+    }
+    if (arguments.length === 2) {
+      return construe.defineProperties(arguments[0], arguments[1]);
+    }
 
     if (arguments.length === 3) {
       return construe.defineProperty(arguments[0], arguments[1], arguments[2]);
@@ -46,7 +50,7 @@
     construe.descriptors.bind(obj, propertyName, dirtyDescriptor, pure);
     construe.descriptors.bind2Way(obj, propertyName, dirtyDescriptor, pure);
 
-    if (!pure.value && ! pure.get && !pure.set && !pure.writable) {
+    if (!pure.value && !pure.get && !pure.set && !pure.writable) {
       pure = dirtyDescriptor;
     }
 
@@ -56,8 +60,8 @@
   construe.bind = function (obj1, var1, obj2, var2) {
     var obj2Emitter = construe.helper(obj2).getEventEmitter();
 
-    obj2Emitter.on('propertyChange', function (propertyName) {
-      if (propertyName === var2) {
+    obj2Emitter.on('propertyChange', function (event) {
+      if (event.propertyName === var2) {
         obj1[var1] = obj2[var2];
       }
     });
@@ -84,7 +88,7 @@
   construe.Helper.prototype = {
     getEventEmitter: function () {
       if (!this.obj['@eventEmitter']) {
-        Object.defineProperty(this.obj, '@eventEmitter', {value: new EventEmitter()});
+        Object.defineProperty(this.obj, '@eventEmitter', {value: imports.finalEvents.dispatcher({})});
         this.obj['@eventEmitter'].target = this.obj;
       }
       return this.obj['@eventEmitter'];
@@ -128,10 +132,10 @@
 
   construe.descriptors.bindable.getGetter = function (privates, propertyName, dirtyDescriptor) {
     return dirtyDescriptor.get ? dirtyDescriptor.get : function () {
-        return privates[propertyName];
+      return privates[propertyName];
     }
   };
-  
+
   construe.descriptors.bindable.getSetter = function (obj, privates, eventEmitter, propertyName, dirtyDescriptor) {
     if (dirtyDescriptor.set) {
       return function (newVal) {
@@ -139,7 +143,7 @@
 
         if (oldVal !== newVal) {
           dirtyDescriptor.set.call(obj, newVal);
-          eventEmitter.emit('propertyChange', propertyName, newVal, oldVal);
+          eventEmitter.emit({type: 'propertyChange', propertyName: propertyName, newValue: newVal, oldValue: oldVal});
         }
       }
     } else {
@@ -148,12 +152,12 @@
 
         if (oldVal !== newVal) {
           privates[propertyName] = newVal;
-          eventEmitter.emit('propertyChange', propertyName, newVal, oldVal);
+          eventEmitter.emit({type: 'propertyChange', propertyName: propertyName, newValue: newVal, oldValue: oldVal});
         }
       }
     }
   };
-  
+
   // -----------------------------------------
   // Bind descriptor
   // -----------------------------------------
@@ -185,7 +189,7 @@
     return pure;
   };
 
-  
+
   // -----------------------------------------
   // Method descriptor
   // -----------------------------------------
