@@ -204,10 +204,10 @@ vows.describe('Describing').addBatch({
         variable: {
           bindable: true,
           set: function (value) {
-              this.test = value;
+            this.test = value;
           },
           get: function () {
-              return this.test;
+            return this.test;
           }
         }
       });
@@ -218,7 +218,7 @@ vows.describe('Describing').addBatch({
             this.test = value;
           },
           get: function () {
-              return this.test;
+            return this.test;
           }
         }
       });
@@ -237,6 +237,39 @@ vows.describe('Describing').addBatch({
       assert.equal(topic.obj1.variable, 2);
       assert.equal(topic.obj1.test, 2);
       assert.equal(topic.obj2.test, 2);
+    }
+  },
+  'onDemand descriptor': {
+    topic: function () {
+      return construe({
+        runs: {
+          value: 0,
+          writable: true
+        },
+        test: {
+          onDemand: function () {
+            this.runs += 1;
+            return 'test';
+          }
+        }
+      });
+    },
+    'runs once': function (topic) {
+      var a = topic.test;
+      var b = topic.test;
+
+      assert.equal(topic.runs, 1);
+    },
+    'doesn\'t add enumerable variables': function (topic) {
+      var enumerable = 0;
+      for (var prop in topic) {
+        enumerable += 1;
+      }
+
+      assert.equal(enumerable, 0);
+    },
+    'creates a getter': function (topic) {
+      assert.equal(topic.test, 'test');
     }
   }
 

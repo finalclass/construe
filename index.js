@@ -49,6 +49,7 @@
     construe.descriptors.bindable(obj, propertyName, dirtyDescriptor, pure);
     construe.descriptors.bind(obj, propertyName, dirtyDescriptor, pure);
     construe.descriptors.bind2Way(obj, propertyName, dirtyDescriptor, pure);
+    construe.descriptors.onDemand(obj, propertyName, dirtyDescriptor, pure);
 
     if (!pure.value && !pure.get && !pure.set && !pure.writable) {
       pure = dirtyDescriptor;
@@ -199,6 +200,24 @@
     if (dirtyDescriptor.method instanceof Function) {
       pure.value = dirtyDescriptor.method.bind(obj);
     }
+    return pure;
+  };
+
+  // -----------------------------------------
+  // OnDemand descriptor
+  // -----------------------------------------
+  construe.descriptors.onDemand = function (obj, propertyName, dirtyDescriptor, pure) {
+    pure = pure || {};
+
+    if (dirtyDescriptor.onDemand instanceof Function) {
+      pure.get = function () {
+        if (!obj['@' + propertyName]) {
+          Object.defineProperty(obj, '@' + propertyName, {value: dirtyDescriptor.onDemand.call(obj)});
+        }
+        return obj['@' + propertyName];
+      };
+    }
+
     return pure;
   };
 

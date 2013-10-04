@@ -124,3 +124,21 @@ console.log(obj2.variable); //obj2.variable has a value of '2 way`
 obj2.variable = 'data binding';
 console.log(obj1.variable); //obj1.variable has a value of 'data binding' now
  ```
+
+#### onDemand
+
+`onDemand` descriptor creates a getter which will call `onDemand` function only once when the property
+will be "demanded" (when someone will try to get it)
+
+```js
+
+var obj = construe({
+  variable: {
+    onDemand: function () {
+      //initialize the variable (this will run only once)
+      return 'TEST';
+    }
+});
+
+console.log(obj.variable); //TEST
+```
