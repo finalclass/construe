@@ -131,14 +131,18 @@ console.log(obj1.variable); //obj1.variable has a value of 'data binding' now
 will be "demanded" (when someone will try to get it)
 
 ```js
+var runs = 0;
 
 var obj = construe({
   variable: {
     onDemand: function () {
       //initialize the variable (this will run only once)
-      return 'TEST';
+      runs += 1;
+      return runs;
     }
 });
 
-console.log(obj.variable); //TEST
+console.log(obj.variable); //1
+console.log(obj.variable); //also 1
+console.log(obj.variable); //also 1
 ```
